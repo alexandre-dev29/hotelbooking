@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId       String        @id @default(auto()) @map("_id") @db.ObjectId
+  firstName    String
+  lastName     String
+  emailAddress String?
+  phoneNumber  String        @unique
+  location     String
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @default(now())
+  reserations  Reservation[]
+}
+
+model Hotel {
+  hotelId     String        @id @default(auto()) @map("_id") @db.ObjectId
+  hotelName   String
+  location    String
+  owner       String
+  createdAt   DateTime?     @default(now())
+  updatedAt   DateTime?     @default(now())
+  Rooms       Room[]
+  reserations Reservation[]
+}
+
+model Room {
+  roomId          String    @id @default(auto()) @map("_id") @db.ObjectId
+  hotelId         String
+  Hotel           Hotel     @relation(fields: [hotelId], references: [hotelId])
+  roomDescription String
+  roomCapacity    Int
+  roomPrice       Decimal
+  createdAt       DateTime? @default(now())
+  updatedAt       DateTime? @default(now())
+}
+
+model Transation {
+  transactionId    String    @id @default(auto()) @map("_id") @db.ObjectId
+  amountTransation Decimal
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @default(now())
+  Payments         Payment[]
+}
+
+model RoomType {
+  roomTypeId          String        @id @default(auto()) @map("_id") @db.ObjectId
+  roomTypeDescription String
+  roomType            RoomTypeEnum  @default(Normal)
+  price               Decimal
+  capacity            Int
+  wifi                Boolean       @default(false)
+  Ac                  Boolean       @default(false)
+  heater              Boolean       @default(false)
+  rating              Int?
+  createdAt           DateTime?     @default(now())
+  updatedAt           DateTime?     @default(now())
+  reserations         Reservation[]
+}
+
+model Reservation {
+  reservationId String    @id @default(auto()) @map("_id") @db.ObjectId
+  guestList     String[]
+  checkIn       DateTime?
+  CheckOut      DateTime?
+  balanceAmount Decimal
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime? @default(now())
+  User          User?     @relation(fields: [userId], references: [userId])
+  userId        String?   @db.ObjectId
+  Hotel         Hotel?    @relation(fields: [hotelId], references: [hotelId])
+  hotelId       String?   @db.ObjectId
+  RoomType      RoomType? @relation(fields: [roomTypeId], references: [roomTypeId])
+  roomTypeId    String?   @db.ObjectId
+}
+
+model Payment {
+  paymentId               String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt               DateTime?   @default(now())
+  updatedAt               DateTime?   @default(now())
+  Transation              Transation? @relation(fields: [transationTransactionId], references: [transactionId])
+  transationTransactionId String?     @db.ObjectId
+}
+
+enum RoomTypeEnum {
+  Luxury
+  Normal
+}
