@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "shared-types": "libs/shared-types"
+    "auth-user": "libs/auth-user",
+    "shared-types": "libs/shared-types",
+    "utility": "libs/utility"
   }
 }
