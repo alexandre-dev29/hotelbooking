@@ -5,6 +5,12 @@ generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["mongoDb"]
 }
+generator PrismaTypeGraphQLTypesGenerator {
+  provider     = "npx prisma-typegraphql-types-generator"
+  modelsOutput = "./libs/shared-types/src/lib/models"
+  enumsOutput  = "./libs/shared-types/src/lib/types/enums" 
+  useYarn      = true 
+}
 
 datasource db {
   provider = "mongodb"
