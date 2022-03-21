@@ -2,23 +2,23 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  provider = "prisma-client-js"
 }
+
 generator PrismaTypeGraphQLTypesGenerator {
   provider     = "npx prisma-typegraphql-types-generator"
   modelsOutput = "./libs/shared-types/src/lib/models"
-  enumsOutput  = "./libs/shared-types/src/lib/types/enums" 
-  useYarn      = true 
+  enumsOutput  = "./libs/shared-types/src/lib/types/enums"
+  useYarn      = true
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  userId       String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String        @id @default(cuid())
   firstName    String
   lastName     String
   emailAddress String?
@@ -30,7 +30,7 @@ model User {
 }
 
 model Hotel {
-  hotelId     String        @id @default(auto()) @map("_id") @db.ObjectId
+  hotelId     String        @id @default(cuid())
   hotelName   String
   location    String
   owner       String
@@ -41,7 +41,7 @@ model Hotel {
 }
 
 model Room {
-  roomId          String    @id @default(auto()) @map("_id") @db.ObjectId
+  roomId          String    @id @default(cuid())
   hotelId         String
   Hotel           Hotel     @relation(fields: [hotelId], references: [hotelId])
   roomDescription String
@@ -52,7 +52,7 @@ model Room {
 }
 
 model Transation {
-  transactionId    String    @id @default(auto()) @map("_id") @db.ObjectId
+  transactionId    String    @id @default(cuid())
   amountTransation Decimal
   createdAt        DateTime? @default(now())
   updatedAt        DateTime? @default(now())
@@ -60,7 +60,7 @@ model Transation {
 }
 
 model RoomType {
-  roomTypeId          String        @id @default(auto()) @map("_id") @db.ObjectId
+  roomTypeId          String        @id @default(cuid())
   roomTypeDescription String
   roomType            RoomTypeEnum  @default(Normal)
   price               Decimal
@@ -75,27 +75,27 @@ model RoomType {
 }
 
 model Reservation {
-  reservationId String    @id @default(auto()) @map("_id") @db.ObjectId
-  guestList     String[]
+  reservationId String    @id @default(cuid())
+  guestList     String
   checkIn       DateTime?
   CheckOut      DateTime?
   balanceAmount Decimal
   createdAt     DateTime? @default(now())
   updatedAt     DateTime? @default(now())
   User          User?     @relation(fields: [userId], references: [userId])
-  userId        String?   @db.ObjectId
+  userId        String?
   Hotel         Hotel?    @relation(fields: [hotelId], references: [hotelId])
-  hotelId       String?   @db.ObjectId
+  hotelId       String?
   RoomType      RoomType? @relation(fields: [roomTypeId], references: [roomTypeId])
-  roomTypeId    String?   @db.ObjectId
+  roomTypeId    String?
 }
 
 model Payment {
-  paymentId               String      @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId               String      @id @default(cuid())
   createdAt               DateTime?   @default(now())
   updatedAt               DateTime?   @default(now())
   Transation              Transation? @relation(fields: [transationTransactionId], references: [transactionId])
-  transationTransactionId String?     @db.ObjectId
+  transationTransactionId String?
 }
 
 enum RoomTypeEnum {

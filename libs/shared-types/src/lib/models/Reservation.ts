@@ -8,8 +8,8 @@ export class Reservation {
   @Field(() => ID)
   reservationId: string;
 
-  @Field(() => [String])
-  guestList: string[];
+  @Field()
+  guestList: string;
 
   @Field({ nullable: true })
   checkIn?: Date;

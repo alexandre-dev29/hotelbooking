@@ -1,6 +1,5 @@
-import { ObjectType, Field, ID } from 'type-graphql';
 import { Reservation } from './Reservation';
-
+import { Field, ObjectType, ID } from 'type-graphql';
 @ObjectType()
 export class User {
   @Field(() => ID)
