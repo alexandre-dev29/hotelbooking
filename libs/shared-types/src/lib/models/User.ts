@@ -25,6 +25,9 @@ export class User {
   @Field()
   location: string;
 
+  @Field()
+  isPhoneConfirmed: boolean;
+
   @Field({ nullable: true })
   createdAt?: Date;
 
