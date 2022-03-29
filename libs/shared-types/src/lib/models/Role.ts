@@ -1,22 +1,22 @@
 import { Field, ObjectType, ID } from 'type-graphql';
-import { Payment } from './Payment';
+import { User } from './User';
 
 @ObjectType()
-export class Transation {
+export class Role {
   @Field((_type) => ID)
-  transactionId: string;
+  roleId: string;
 
   @Field()
-  amountTransation: number;
+  userRole: string;
+
+  @Field((_type) => [User])
+  User: User[];
 
   @Field({ nullable: true })
   createdAt?: Date;
 
   @Field({ nullable: true })
   updatedAt?: Date;
-
-  @Field((_type) => [Payment])
-  Payments: Payment[];
 
   // skip overwrite 👇
 }

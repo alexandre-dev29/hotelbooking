@@ -1,8 +1,10 @@
 import { Reservation } from './Reservation';
 import { Field, ObjectType, ID } from 'type-graphql';
+import { Tokens } from './Tokens';
+import { Role } from './Role';
 @ObjectType()
 export class User {
-  @Field(() => ID)
+  @Field((_type) => ID)
   userId: string;
 
   @Field()
@@ -18,6 +20,9 @@ export class User {
   phoneNumber: string;
 
   @Field()
+  password: string;
+
+  @Field()
   location: string;
 
   @Field({ nullable: true })
@@ -26,8 +31,17 @@ export class User {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [Reservation])
+  @Field((_type) => [Reservation])
   reserations: Reservation[];
+
+  @Field((_type) => [Tokens])
+  Tokens: Tokens[];
+
+  @Field((_type) => Role, { nullable: true })
+  Role?: Role;
+
+  @Field({ nullable: true })
+  roleRoleId?: string;
 
   // skip overwrite 👇
 }

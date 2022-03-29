@@ -3,19 +3,19 @@ import { Hotel } from './Hotel';
 
 @ObjectType()
 export class Room {
-  @Field(() => ID)
+  @Field((_type) => ID)
   roomId: string;
 
   @Field()
   hotelId: string;
 
-  @Field(() => Hotel)
+  @Field((_type) => Hotel)
   Hotel: Hotel;
 
   @Field()
   roomDescription: string;
 
-  @Field(() => Int)
+  @Field((_type) => Int)
   roomCapacity: number;
 
   @Field()

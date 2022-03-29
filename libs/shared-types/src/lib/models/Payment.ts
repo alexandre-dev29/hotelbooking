@@ -3,7 +3,7 @@ import { Transation } from './Transation';
 
 @ObjectType()
 export class Payment {
-  @Field(() => ID)
+  @Field((_type) => ID)
   paymentId: string;
 
   @Field({ nullable: true })
@@ -12,7 +12,7 @@ export class Payment {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => Transation, { nullable: true })
+  @Field((_type) => Transation, { nullable: true })
   Transation?: Transation;
 
   @Field({ nullable: true })

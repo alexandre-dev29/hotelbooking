@@ -5,7 +5,7 @@ import { RoomType } from './RoomType';
 
 @ObjectType()
 export class Reservation {
-  @Field(() => ID)
+  @Field((_type) => ID)
   reservationId: string;
 
   @Field()
@@ -26,19 +26,19 @@ export class Reservation {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => User, { nullable: true })
+  @Field((_type) => User, { nullable: true })
   User?: User;
 
   @Field({ nullable: true })
   userId?: string;
 
-  @Field(() => Hotel, { nullable: true })
+  @Field((_type) => Hotel, { nullable: true })
   Hotel?: Hotel;
 
   @Field({ nullable: true })
   hotelId?: string;
 
-  @Field(() => RoomType, { nullable: true })
+  @Field((_type) => RoomType, { nullable: true })
   RoomType?: RoomType;
 
   @Field({ nullable: true })
