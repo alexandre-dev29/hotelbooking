@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
     "@nestjs/apollo": "^10.0.7",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.0",
@@ -16,6 +17,7 @@
     "@nestjs/graphql": "^10.0.7",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nextui-org/react": "^1.0.5-beta.5",
     "@nrwl/next": "13.9.5",
     "@prisma/client": "^3.11.0",
     "apollo-server-express": "^3.6.4",
