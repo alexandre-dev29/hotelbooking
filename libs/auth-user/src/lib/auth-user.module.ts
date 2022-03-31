@@ -1,9 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 import { AuthResolver } from './auth/auth.resolver';
-import {ConfigModule, ConfigService} from "@nestjs/config";
-import {JwtModule, JwtService} from "@nestjs/jwt";
-import {PrismaService, TwilioService, UtilityModule} from "@hotelbooking/utility";
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import {
+  PrismaService,
+  TwilioService,
+  UtilityModule,
+} from '@hotelbooking/utility';
+import { LoginResponse } from '@hotelbooking/shared-types';
 
 @Module({
   imports: [
@@ -15,10 +20,16 @@ import {PrismaService, TwilioService, UtilityModule} from "@hotelbooking/utility
       }),
       inject: [ConfigService],
     }),
-    UtilityModule
+    UtilityModule,
   ],
   controllers: [],
-  providers: [AuthService, AuthResolver, PrismaService, TwilioService],
+  providers: [
+    AuthService,
+    AuthResolver,
+    PrismaService,
+    TwilioService,
+    LoginResponse,
+  ],
   exports: [],
 })
 export class AuthUserModule {}

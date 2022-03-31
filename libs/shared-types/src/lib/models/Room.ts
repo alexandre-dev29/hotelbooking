@@ -1,4 +1,4 @@
-import { Field, ObjectType, ID, Int } from 'type-graphql';
+import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Hotel } from './Hotel';
 
 @ObjectType()
