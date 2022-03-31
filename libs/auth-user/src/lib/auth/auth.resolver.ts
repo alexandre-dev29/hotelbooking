@@ -2,7 +2,7 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { LoginResponse, User } from '@hotelbooking/shared-types';
 import { AuthService } from './auth.service';
 
-@Resolver(() => User)
+@Resolver()
 export class AuthResolver {
   constructor(private authService: AuthService) {}
 
