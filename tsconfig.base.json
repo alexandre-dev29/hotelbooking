@@ -15,9 +15,18 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hotelbooking/auth-user": ["libs/auth-user/src/index.ts"],
-      "@hotelbooking/shared-types": ["libs/shared-types/src/index.ts"],
-      "@hotelbooking/utility": ["libs/utility/src/index.ts"]
+      "@hotelbooking/auth-user": [
+        "libs/auth-user/src/index.ts"
+      ],
+      "@hotelbooking/shared-types": [
+        "libs/shared-types/src/index.ts"
+      ],
+      "@hotelbooking/shared-ui-component": [
+        "libs/shared-ui-component/src/index.ts"
+      ],
+      "@hotelbooking/utility": [
+        "libs/utility/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
