@@ -1,5 +1,6 @@
 overwrite: true
 schema: "http://localhost:3333/graphql"
+documents: "libs/shared-types/src/lib/GraphQl/*.graphql"
 generates:
   libs/shared-types/src/lib/GraphqlGenerated/graphql.tsx:
     plugins:
@@ -8,6 +9,3 @@ generates:
       - "typescript-react-apollo"
     config:
       withHooks: true
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"
