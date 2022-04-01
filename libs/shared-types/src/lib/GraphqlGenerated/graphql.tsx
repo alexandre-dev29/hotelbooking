@@ -1,3 +1,6 @@
+import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -9,6 +12,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -22,8 +26,12 @@ export type Scalars = {
 };
 
 export type CreateUserInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars['Int'];
+  emailAddress?: InputMaybe<Scalars['String']>;
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  location: Scalars['String'];
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
 };
 
 export type Hotel = {
@@ -40,6 +48,8 @@ export type Hotel = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  AskingForOtpCode: Scalars['Boolean'];
+  ConfirmPhoneNumber: Scalars['Boolean'];
   RegisterUser: User;
   createUser: User;
   loginUser: Scalars['LoginResponse'];
@@ -47,7 +57,17 @@ export type Mutation = {
   updateUser: User;
 };
 
+export type MutationAskingForOtpCodeArgs = {
+  phoneNumber: Scalars['String'];
+};
+
+export type MutationConfirmPhoneNumberArgs = {
+  otpCode: Scalars['String'];
+  phoneNumber: Scalars['String'];
+};
+
 export type MutationRegisterUserArgs = {
+  emailAddress?: InputMaybe<Scalars['String']>;
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   location?: InputMaybe<Scalars['String']>;
@@ -65,7 +85,7 @@ export type MutationLoginUserArgs = {
 };
 
 export type MutationRemoveUserArgs = {
-  id: Scalars['Int'];
+  userId: Scalars['String'];
 };
 
 export type MutationUpdateUserArgs = {
@@ -84,11 +104,12 @@ export type Payment = {
 export type Query = {
   __typename?: 'Query';
   _service: _Service;
-  user: User;
+  getAllUsers: Array<User>;
+  getOneUser: User;
 };
 
-export type QueryUserArgs = {
-  id: Scalars['Int'];
+export type QueryGetOneUserArgs = {
+  userId: Scalars['String'];
 };
 
 export type Reservation = {
@@ -110,7 +131,6 @@ export type Reservation = {
 
 export type Role = {
   __typename?: 'Role';
-  User: Array<User>;
   createdAt?: Maybe<Scalars['DateTime']>;
   roleId: Scalars['ID'];
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -152,7 +172,6 @@ export enum RoomTypeEnum {
 
 export type Tokens = {
   __typename?: 'Tokens';
-  User: User;
   createdAt?: Maybe<Scalars['DateTime']>;
   token: Scalars['String'];
   tokenId: Scalars['ID'];
@@ -170,15 +189,18 @@ export type Transation = {
 };
 
 export type UpdateUserInput = {
-  /** Example field (placeholder) */
-  exampleField?: InputMaybe<Scalars['Int']>;
-  id: Scalars['Int'];
+  emailAddress?: InputMaybe<Scalars['String']>;
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  location?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  phoneNumber?: InputMaybe<Scalars['String']>;
+  userId: Scalars['String'];
 };
 
 export type User = {
   __typename?: 'User';
   Role?: Maybe<Role>;
-  Tokens: Array<Tokens>;
   createdAt?: Maybe<Scalars['DateTime']>;
   emailAddress?: Maybe<Scalars['String']>;
   firstName: Scalars['String'];
@@ -187,8 +209,10 @@ export type User = {
   location: Scalars['String'];
   password: Scalars['String'];
   phoneNumber: Scalars['String'];
-  reserations: Array<Reservation>;
+  reservations: Array<Reservation>;
+  role: Role;
   roleRoleId?: Maybe<Scalars['String']>;
+  tokens: Array<Tokens>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   userId: Scalars['ID'];
 };
@@ -198,3 +222,269 @@ export type _Service = {
   /** The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied */
   sdl?: Maybe<Scalars['String']>;
 };
+
+export type LoginUserMutationVariables = Exact<{
+  phoneNumber: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+export type LoginUserMutation = { __typename?: 'Mutation'; loginUser: any };
+
+export type RegisterUserMutationVariables = Exact<{
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  location?: InputMaybe<Scalars['String']>;
+  password: Scalars['String'];
+  phoneNumber: Scalars['String'];
+}>;
+
+export type RegisterUserMutation = {
+  __typename?: 'Mutation';
+  RegisterUser: {
+    __typename?: 'User';
+    userId: string;
+    phoneNumber: string;
+    firstName: string;
+    lastName: string;
+    location: string;
+  };
+};
+
+export type AskingForOtpCodeMutationVariables = Exact<{
+  phoneNumber: Scalars['String'];
+}>;
+
+export type AskingForOtpCodeMutation = {
+  __typename?: 'Mutation';
+  AskingForOtpCode: boolean;
+};
+
+export type ConfirmPhoneNumberMutationVariables = Exact<{
+  otpCode: Scalars['String'];
+  phoneNumber: Scalars['String'];
+}>;
+
+export type ConfirmPhoneNumberMutation = {
+  __typename?: 'Mutation';
+  ConfirmPhoneNumber: boolean;
+};
+
+export const LoginUserDocument = gql`
+  mutation loginUser($phoneNumber: String!, $password: String!) {
+    loginUser(phoneNumber: $phoneNumber, password: $password)
+  }
+`;
+export type LoginUserMutationFn = Apollo.MutationFunction<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
+
+/**
+ * __useLoginUserMutation__
+ *
+ * To run a mutation, you first call `useLoginUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginUserMutation, { data, loading, error }] = useLoginUserMutation({
+ *   variables: {
+ *      phoneNumber: // value for 'phoneNumber'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginUserMutation,
+    LoginUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(
+    LoginUserDocument,
+    options
+  );
+}
+
+export type LoginUserMutationHookResult = ReturnType<
+  typeof useLoginUserMutation
+>;
+export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
+export type LoginUserMutationOptions = Apollo.BaseMutationOptions<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
+export const RegisterUserDocument = gql`
+  mutation RegisterUser(
+    $firstName: String!
+    $lastName: String!
+    $location: String
+    $password: String!
+    $phoneNumber: String!
+  ) {
+    RegisterUser(
+      firstName: $firstName
+      lastName: $lastName
+      phoneNumber: $phoneNumber
+      password: $password
+      location: $location
+    ) {
+      userId
+      phoneNumber
+      firstName
+      lastName
+      location
+    }
+  }
+`;
+export type RegisterUserMutationFn = Apollo.MutationFunction<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
+>;
+
+/**
+ * __useRegisterUserMutation__
+ *
+ * To run a mutation, you first call `useRegisterUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerUserMutation, { data, loading, error }] = useRegisterUserMutation({
+ *   variables: {
+ *      firstName: // value for 'firstName'
+ *      lastName: // value for 'lastName'
+ *      location: // value for 'location'
+ *      password: // value for 'password'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useRegisterUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >(RegisterUserDocument, options);
+}
+
+export type RegisterUserMutationHookResult = ReturnType<
+  typeof useRegisterUserMutation
+>;
+export type RegisterUserMutationResult =
+  Apollo.MutationResult<RegisterUserMutation>;
+export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
+>;
+export const AskingForOtpCodeDocument = gql`
+  mutation AskingForOtpCode($phoneNumber: String!) {
+    AskingForOtpCode(phoneNumber: $phoneNumber)
+  }
+`;
+export type AskingForOtpCodeMutationFn = Apollo.MutationFunction<
+  AskingForOtpCodeMutation,
+  AskingForOtpCodeMutationVariables
+>;
+
+/**
+ * __useAskingForOtpCodeMutation__
+ *
+ * To run a mutation, you first call `useAskingForOtpCodeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAskingForOtpCodeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [askingForOtpCodeMutation, { data, loading, error }] = useAskingForOtpCodeMutation({
+ *   variables: {
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useAskingForOtpCodeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AskingForOtpCodeMutation,
+    AskingForOtpCodeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    AskingForOtpCodeMutation,
+    AskingForOtpCodeMutationVariables
+  >(AskingForOtpCodeDocument, options);
+}
+
+export type AskingForOtpCodeMutationHookResult = ReturnType<
+  typeof useAskingForOtpCodeMutation
+>;
+export type AskingForOtpCodeMutationResult =
+  Apollo.MutationResult<AskingForOtpCodeMutation>;
+export type AskingForOtpCodeMutationOptions = Apollo.BaseMutationOptions<
+  AskingForOtpCodeMutation,
+  AskingForOtpCodeMutationVariables
+>;
+export const ConfirmPhoneNumberDocument = gql`
+  mutation ConfirmPhoneNumber($otpCode: String!, $phoneNumber: String!) {
+    ConfirmPhoneNumber(phoneNumber: $phoneNumber, otpCode: $otpCode)
+  }
+`;
+export type ConfirmPhoneNumberMutationFn = Apollo.MutationFunction<
+  ConfirmPhoneNumberMutation,
+  ConfirmPhoneNumberMutationVariables
+>;
+
+/**
+ * __useConfirmPhoneNumberMutation__
+ *
+ * To run a mutation, you first call `useConfirmPhoneNumberMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useConfirmPhoneNumberMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [confirmPhoneNumberMutation, { data, loading, error }] = useConfirmPhoneNumberMutation({
+ *   variables: {
+ *      otpCode: // value for 'otpCode'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useConfirmPhoneNumberMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ConfirmPhoneNumberMutation,
+    ConfirmPhoneNumberMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ConfirmPhoneNumberMutation,
+    ConfirmPhoneNumberMutationVariables
+  >(ConfirmPhoneNumberDocument, options);
+}
+
+export type ConfirmPhoneNumberMutationHookResult = ReturnType<
+  typeof useConfirmPhoneNumberMutation
+>;
+export type ConfirmPhoneNumberMutationResult =
+  Apollo.MutationResult<ConfirmPhoneNumberMutation>;
+export type ConfirmPhoneNumberMutationOptions = Apollo.BaseMutationOptions<
+  ConfirmPhoneNumberMutation,
+  ConfirmPhoneNumberMutationVariables
+>;

@@ -1,0 +1,168 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+directive @key(fields: String!) on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+type Hotel {
+  Rooms: [Room!]!
+  createdAt: DateTime
+  hotelId: ID!
+  hotelName: String!
+  location: String!
+  owner: String!
+  reserations: [Reservation!]!
+  updatedAt: DateTime
+}
+
+type Mutation {
+  AskingForOtpCode(phoneNumber: String!): Boolean!
+  ConfirmPhoneNumber(otpCode: String!, phoneNumber: String!): Boolean!
+  RegisterUser(emailAddress: String, firstName: String!, lastName: String!, location: String, password: String!, phoneNumber: String!): User!
+  createUser(createUserInput: CreateUserInput!): User!
+  loginUser(password: String!, phoneNumber: String!): LoginResponse!
+  removeUser(userId: String!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
+type Payment {
+  Transation: Transation
+  createdAt: DateTime
+  paymentId: ID!
+  transationTransactionId: String
+  updatedAt: DateTime
+}
+
+type Query {
+  _service: _Service!
+  getAllUsers: [User!]!
+  getOneUser(userId: String!): User!
+}
+
+type Reservation {
+  CheckOut: DateTime
+  Hotel: Hotel
+  RoomType: RoomType
+  User: User
+  balanceAmount: Float!
+  checkIn: DateTime
+  createdAt: DateTime
+  guestList: String!
+  hotelId: String
+  reservationId: ID!
+  roomTypeId: String
+  updatedAt: DateTime
+  userId: String
+}
+
+type Role {
+  createdAt: DateTime
+  roleId: ID!
+  updatedAt: DateTime
+  userRole: String!
+}
+
+type Room {
+  Hotel: Hotel!
+  createdAt: DateTime
+  hotelId: String!
+  roomCapacity: Int!
+  roomDescription: String!
+  roomId: ID!
+  roomPrice: Float!
+  updatedAt: DateTime
+}
+
+type RoomType {
+  Ac: Boolean!
+  capacity: Int!
+  createdAt: DateTime
+  heater: Boolean!
+  price: Float!
+  rating: Int
+  reserations: [Reservation!]!
+  roomType: RoomTypeEnum!
+  roomTypeDescription: String!
+  roomTypeId: ID!
+  updatedAt: DateTime
+  wifi: Boolean!
+}
+
+type Tokens {
+  createdAt: DateTime
+  token: String!
+  tokenId: ID!
+  updatedAt: DateTime
+  userId: String!
+}
+
+type Transation {
+  Payments: [Payment!]!
+  amountTransation: Float!
+  createdAt: DateTime
+  transactionId: ID!
+  updatedAt: DateTime
+}
+
+type User {
+  Role: Role
+  createdAt: DateTime
+  emailAddress: String
+  firstName: String!
+  isPhoneConfirmed: Boolean!
+  lastName: String!
+  location: String!
+  password: String!
+  phoneNumber: String!
+  reservations: [Reservation!]!
+  role: Role!
+  roleRoleId: String
+  tokens: [Tokens!]!
+  updatedAt: DateTime
+  userId: ID!
+}
+
+type _Service {
+  "The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied"
+  sdl: String
+}
+
+enum RoomTypeEnum {
+  Luxury
+  Normal
+}
+
+"A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."
+scalar DateTime
+
+scalar LoginResponse
+
+input CreateUserInput {
+  emailAddress: String
+  firstName: String!
+  lastName: String!
+  location: String!
+  password: String!
+  phoneNumber: String!
+}
+
+input UpdateUserInput {
+  emailAddress: String
+  firstName: String!
+  lastName: String!
+  location: String
+  password: String
+  phoneNumber: String
+  userId: String!
+}
