@@ -10,6 +10,8 @@ import { UserService } from './user.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { Reservation, Role, Tokens, User } from '@hotelbooking/shared-types';
+import { GqlAuthGuard } from '@hotelbooking/auth-user';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -20,6 +22,7 @@ export class UserResolver {
     return this.userService.create(createUserInput);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => [User], { name: 'getAllUsers' })
   findAll() {
     return this.userService.findAll();

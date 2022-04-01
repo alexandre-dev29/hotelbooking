@@ -1,4 +1,4 @@
-import {Scalar} from "@nestjs/graphql";
+import { Scalar } from '@nestjs/graphql';
 
 export function sharedTypes(): string {
   return 'shared-types';
@@ -8,4 +8,9 @@ export function sharedTypes(): string {
 export class LoginResponse {
   accessToken: string;
   user: any;
+}
+
+export enum ErrorTypeGraphQl {
+  Network,
+  Request,
 }
