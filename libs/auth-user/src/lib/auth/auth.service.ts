@@ -60,7 +60,8 @@ export class AuthService {
     lastName: string,
     phoneNumber: string,
     password: string,
-    location: string
+    location: string,
+    emailAddress?: string
   ): Promise<User | any> {
     const userFounded = await this.prismaService.user.findUnique({
       where: { phoneNumber: phoneNumber },

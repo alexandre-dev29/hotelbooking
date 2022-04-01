@@ -1,8 +1,15 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { User } from '@hotelbooking/shared-types';
+import { Reservation, Role, Tokens, User } from '@hotelbooking/shared-types';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -13,23 +20,38 @@ export class UserResolver {
     return this.userService.create(createUserInput);
   }
 
-  @Query(() => [User], { name: 'user' })
+  @Query(() => [User], { name: 'getAllUsers' })
   findAll() {
     return this.userService.findAll();
   }
 
-  @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
+  @Query(() => User, { name: 'getOneUser' })
+  findOne(@Args('userId', { type: () => String }) userId: string) {
+    return this.userService.findOne(userId);
   }
 
   @Mutation(() => User)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.userService.update(updateUserInput.id, updateUserInput);
+    return this.userService.update(updateUserInput.userId, updateUserInput);
   }
 
   @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.remove(id);
+  removeUser(@Args('userId', { type: () => String }) userId: string) {
+    return this.userService.remove(userId);
+  }
+
+  @ResolveField('reservations', () => [Reservation])
+  async reservations(@Parent() user: User): Promise<Reservation[]> {
+    return this.userService.getAllReservations(user.userId);
+  }
+
+  @ResolveField('tokens', () => [Tokens])
+  async tokens(@Parent() user: User): Promise<Tokens[]> {
+    return this.userService.getAllTokens(user.userId);
+  }
+
+  @ResolveField('role', () => Role)
+  async role(@Parent() user: User): Promise<Role> {
+    return this.userService.getRoleByUserId(user.userId);
   }
 }
