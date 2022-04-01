@@ -9,8 +9,3 @@ export class LoginResponse {
   accessToken: string;
   user: any;
 }
-
-export enum ErrorTypeGraphQl {
-  Network,
-  Request,
-}

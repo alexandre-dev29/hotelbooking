@@ -6,6 +6,7 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import {
   DarkTheme,
   ErrorPopup,
+  ErrorTypeGraphQl,
   LightTheme,
 } from '@hotelbooking/shared-ui-component';
 import {
@@ -17,39 +18,49 @@ import {
 } from '@apollo/client';
 import { useState } from 'react';
 import { onError } from '@apollo/client/link/error';
-import { ErrorTypeGraphQl } from '@hotelbooking/shared-types';
+import { setContext } from '@apollo/client/link/context';
 
-// TODO replace online image with local image
 function CustomApp({ Component, pageProps }: AppProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [errorType, setErrorType] = useState(ErrorTypeGraphQl.Request);
   const [messagesError, setMessagesError] = useState([]);
 
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   const httpLink = new HttpLink({
-    uri: 'http://localhost:4000/graphql',
+    uri: 'http://localhost:3333/graphql',
   });
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(true);
-  };
-
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       setMessagesError(graphQLErrors.map((a) => a.message));
       setErrorType(ErrorTypeGraphQl.Request);
+      setIsOpen(true);
     }
     if (networkError) {
       setErrorType(ErrorTypeGraphQl.Network);
       setMessagesError([
         'Connection Issue Please check Your internet connection and try again',
       ]);
+      setIsOpen(true);
     }
   });
+
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem('accessToken');
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    };
+  });
+
   const client = new ApolloClient({
-    link: from([errorLink, httpLink]),
+    link: from([errorLink, authLink, httpLink]),
     cache: new InMemoryCache(),
   });
 
@@ -58,7 +69,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <ErrorPopup
         errorType={errorType}
         messages={messagesError}
-        onCloseEvent={setIsOpen}
+        onCloseEvent={closeModal}
         openStatus={isOpen}
       />
       <Head>

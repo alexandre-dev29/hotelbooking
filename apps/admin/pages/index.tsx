@@ -1,4 +1,7 @@
-import { ThemeSwitcher } from '@hotelbooking/shared-ui-component';
+import {
+  ThemeSwitcher,
+  useGetAllUsersQuery,
+} from '@hotelbooking/shared-ui-component';
 import dynamic from 'next/dynamic';
 
 const BackgroundOverlayDynamic = dynamic(
@@ -11,10 +14,14 @@ const BackgroundOverlayDynamic = dynamic(
 );
 
 export function Index() {
+  const { data, loading } = useGetAllUsersQuery();
+  if (!loading) console.log(data);
   return (
     <>
       <BackgroundOverlayDynamic />
-      <h1>Hello alexandre</h1>
+      {data.getAllUsers.map((user, index) => (
+        <h1 key={index}>{user.phoneNumber}</h1>
+      ))}
       <ThemeSwitcher />
     </>
   );
