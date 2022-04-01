@@ -1,4 +1,4 @@
-import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { RoomTypeEnum } from '../types/enums/RoomTypeEnum';
 import { Reservation } from './Reservation';
 
@@ -13,7 +13,7 @@ export class RoomType {
   @Field((_type) => RoomTypeEnum)
   roomType: RoomTypeEnum;
 
-  @Field()
+  @Field((_type) => Float)
   price: number;
 
   @Field((_type) => Int)

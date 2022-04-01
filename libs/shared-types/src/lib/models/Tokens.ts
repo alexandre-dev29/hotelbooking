@@ -1,5 +1,4 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { User } from './User';
 
 @ObjectType()
 export class Tokens {
@@ -11,9 +10,6 @@ export class Tokens {
 
   @Field()
   userId: string;
-
-  @Field((_type) => User)
-  User: User;
 
   @Field({ nullable: true })
   createdAt?: Date;

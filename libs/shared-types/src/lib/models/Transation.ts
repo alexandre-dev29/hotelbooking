@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, Float, ID, ObjectType } from '@nestjs/graphql';
 import { Payment } from './Payment';
 
 @ObjectType()
@@ -6,7 +6,7 @@ export class Transation {
   @Field((_type) => ID)
   transactionId: string;
 
-  @Field()
+  @Field((_type) => Float)
   amountTransation: number;
 
   @Field({ nullable: true })

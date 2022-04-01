@@ -1,11 +1,9 @@
-import { Reservation } from './Reservation';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Tokens } from './Tokens';
 import { Role } from './Role';
 
 @ObjectType()
 export class User {
-  @Field(() => ID)
+  @Field((_type) => ID)
   userId: string;
 
   @Field()
@@ -35,13 +33,7 @@ export class User {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [Reservation])
-  reserations: Reservation[];
-
-  @Field(() => [Tokens])
-  Tokens: Tokens[];
-
-  @Field(() => Role, { nullable: true })
+  @Field((_type) => Role, { nullable: true })
   Role?: Role;
 
   @Field({ nullable: true })

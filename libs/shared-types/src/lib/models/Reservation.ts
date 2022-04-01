@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, Float, ID, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { Hotel } from './Hotel';
 import { RoomType } from './RoomType';
@@ -17,7 +17,7 @@ export class Reservation {
   @Field({ nullable: true })
   CheckOut?: Date;
 
-  @Field()
+  @Field((_type) => Float)
   balanceAmount: number;
 
   @Field({ nullable: true })

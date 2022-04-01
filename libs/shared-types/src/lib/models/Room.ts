@@ -1,4 +1,4 @@
-import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
+import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Hotel } from './Hotel';
 
 @ObjectType()
@@ -18,7 +18,7 @@ export class Room {
   @Field((_type) => Int)
   roomCapacity: number;
 
-  @Field()
+  @Field((_type) => Float)
   roomPrice: number;
 
   @Field({ nullable: true })

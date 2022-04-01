@@ -65,14 +65,14 @@ model Room {
   Hotel           Hotel     @relation(fields: [hotelId], references: [hotelId])
   roomDescription String
   roomCapacity    Int
-  roomPrice       Decimal
+  roomPrice       Float
   createdAt       DateTime? @default(now())
   updatedAt       DateTime? @default(now())
 }
 
 model Transation {
   transactionId    String    @id @default(cuid())
-  amountTransation Decimal
+  amountTransation Float
   createdAt        DateTime? @default(now())
   updatedAt        DateTime? @default(now())
   Payments         Payment[]
@@ -82,7 +82,7 @@ model RoomType {
   roomTypeId          String        @id @default(cuid())
   roomTypeDescription String
   roomType            RoomTypeEnum  @default(Normal)
-  price               Decimal
+  price               Float
   capacity            Int
   wifi                Boolean       @default(false)
   Ac                  Boolean       @default(false)
@@ -98,7 +98,7 @@ model Reservation {
   guestList     String
   checkIn       DateTime?
   CheckOut      DateTime?
-  balanceAmount Decimal
+  balanceAmount Float
   createdAt     DateTime? @default(now())
   updatedAt     DateTime? @default(now())
   User          User?     @relation(fields: [userId], references: [userId])
