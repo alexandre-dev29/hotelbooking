@@ -19,9 +19,11 @@ export function Index() {
   return (
     <>
       <BackgroundOverlayDynamic />
-      {data.getAllUsers.map((user, index) => (
-        <h1 key={index}>{user.phoneNumber}</h1>
-      ))}
+      {!loading
+        ? data.getAllUsers.map((user, index) => (
+            <h1 key={index}>{user.phoneNumber}</h1>
+          ))
+        : 'Loading'}
       <ThemeSwitcher />
     </>
   );
