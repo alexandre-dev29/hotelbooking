@@ -1,36 +1,55 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  provider = "prisma-client-js"
 }
+
 generator PrismaTypeGraphQLTypesGenerator {
   provider     = "npx prisma-typegraphql-types-generator"
   modelsOutput = "./libs/shared-types/src/lib/models"
-  enumsOutput  = "./libs/shared-types/src/lib/types/enums" 
-  useYarn      = true 
+  enumsOutput  = "./libs/shared-types/src/lib/types/enums"
+  useYarn      = true
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  userId       String        @id @default(auto()) @map("_id") @db.ObjectId
-  firstName    String
-  lastName     String
-  emailAddress String?
-  phoneNumber  String        @unique
-  location     String
-  createdAt    DateTime?     @default(now())
-  updatedAt    DateTime?     @default(now())
-  reserations  Reservation[]
+  userId           String        @id @default(cuid())
+  firstName        String
+  lastName         String
+  emailAddress     String?
+  phoneNumber      String        @unique
+  password         String        @default("123456")
+  location         String
+  isPhoneConfirmed Boolean       @default(false)
+  createdAt        DateTime?     @default(now())
+  updatedAt        DateTime?     @default(now())
+  reserations      Reservation[]
+  Tokens           Tokens[]
+  Role             Role?         @relation(fields: [roleRoleId], references: [roleId])
+  roleRoleId       String?
+}
+
+model Tokens {
+  tokenId   String    @id @default(cuid())
+  token     String    @db.LongText
+  userId    String
+  User      User      @relation(fields: [userId], references: [userId])
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now())
+}
+
+model Role {
+  roleId    String    @id @default(cuid())
+  userRole  String
+  User      User[]
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now())
 }
 
 model Hotel {
-  hotelId     String        @id @default(auto()) @map("_id") @db.ObjectId
+  hotelId     String        @id @default(cuid())
   hotelName   String
   location    String
   owner       String
@@ -41,29 +60,29 @@ model Hotel {
 }
 
 model Room {
-  roomId          String    @id @default(auto()) @map("_id") @db.ObjectId
+  roomId          String    @id @default(cuid())
   hotelId         String
   Hotel           Hotel     @relation(fields: [hotelId], references: [hotelId])
   roomDescription String
   roomCapacity    Int
-  roomPrice       Decimal
+  roomPrice       Float
   createdAt       DateTime? @default(now())
   updatedAt       DateTime? @default(now())
 }
 
 model Transation {
-  transactionId    String    @id @default(auto()) @map("_id") @db.ObjectId
-  amountTransation Decimal
+  transactionId    String    @id @default(cuid())
+  amountTransation Float
   createdAt        DateTime? @default(now())
   updatedAt        DateTime? @default(now())
   Payments         Payment[]
 }
 
 model RoomType {
-  roomTypeId          String        @id @default(auto()) @map("_id") @db.ObjectId
+  roomTypeId          String        @id @default(cuid())
   roomTypeDescription String
   roomType            RoomTypeEnum  @default(Normal)
-  price               Decimal
+  price               Float
   capacity            Int
   wifi                Boolean       @default(false)
   Ac                  Boolean       @default(false)
@@ -75,27 +94,27 @@ model RoomType {
 }
 
 model Reservation {
-  reservationId String    @id @default(auto()) @map("_id") @db.ObjectId
-  guestList     String[]
+  reservationId String    @id @default(cuid())
+  guestList     String
   checkIn       DateTime?
   CheckOut      DateTime?
-  balanceAmount Decimal
+  balanceAmount Float
   createdAt     DateTime? @default(now())
   updatedAt     DateTime? @default(now())
   User          User?     @relation(fields: [userId], references: [userId])
-  userId        String?   @db.ObjectId
+  userId        String?
   Hotel         Hotel?    @relation(fields: [hotelId], references: [hotelId])
-  hotelId       String?   @db.ObjectId
+  hotelId       String?
   RoomType      RoomType? @relation(fields: [roomTypeId], references: [roomTypeId])
-  roomTypeId    String?   @db.ObjectId
+  roomTypeId    String?
 }
 
 model Payment {
-  paymentId               String      @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId               String      @id @default(cuid())
   createdAt               DateTime?   @default(now())
   updatedAt               DateTime?   @default(now())
   Transation              Transation? @relation(fields: [transationTransactionId], references: [transactionId])
-  transationTransactionId String?     @db.ObjectId
+  transationTransactionId String?
 }
 
 enum RoomTypeEnum {

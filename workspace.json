@@ -1,7 +1,12 @@
 {
   "version": 2,
   "projects": {
+    "admin": "apps/admin",
+    "admin-e2e": "apps/admin-e2e",
     "api": "apps/api",
-    "shared-types": "libs/shared-types"
+    "auth-user": "libs/auth-user",
+    "shared-types": "libs/shared-types",
+    "shared-ui-component": "libs/shared-ui-component",
+    "utility": "libs/utility"
   }
 }

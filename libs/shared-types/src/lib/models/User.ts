@@ -1,9 +1,9 @@
-import { ObjectType, Field, ID } from 'type-graphql';
-import { Reservation } from './Reservation';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Role } from './Role';
 
 @ObjectType()
 export class User {
-  @Field(() => ID)
+  @Field((_type) => ID)
   userId: string;
 
   @Field()
@@ -19,7 +19,13 @@ export class User {
   phoneNumber: string;
 
   @Field()
+  password: string;
+
+  @Field()
   location: string;
+
+  @Field()
+  isPhoneConfirmed: boolean;
 
   @Field({ nullable: true })
   createdAt?: Date;
@@ -27,8 +33,11 @@ export class User {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [Reservation])
-  reserations: Reservation[];
+  @Field((_type) => Role, { nullable: true })
+  Role?: Role;
+
+  @Field({ nullable: true })
+  roleRoleId?: string;
 
   // skip overwrite 👇
 }

@@ -1,22 +1,22 @@
-import { Field, ObjectType, ID, Int } from 'type-graphql';
+import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { RoomTypeEnum } from '../types/enums/RoomTypeEnum';
 import { Reservation } from './Reservation';
 
 @ObjectType()
 export class RoomType {
-  @Field(() => ID)
+  @Field((_type) => ID)
   roomTypeId: string;
 
   @Field()
   roomTypeDescription: string;
 
-  @Field(() => RoomTypeEnum)
+  @Field((_type) => RoomTypeEnum)
   roomType: RoomTypeEnum;
 
-  @Field()
+  @Field((_type) => Float)
   price: number;
 
-  @Field(() => Int)
+  @Field((_type) => Int)
   capacity: number;
 
   @Field()
@@ -28,7 +28,7 @@ export class RoomType {
   @Field()
   heater: boolean;
 
-  @Field(() => Int, { nullable: true })
+  @Field((_type) => Int, { nullable: true })
   rating?: number;
 
   @Field({ nullable: true })
@@ -37,7 +37,7 @@ export class RoomType {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [Reservation])
+  @Field((_type) => [Reservation])
   reserations: Reservation[];
 
   // skip overwrite 👇

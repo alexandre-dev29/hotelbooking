@@ -1,12 +1,12 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { Field, Float, ID, ObjectType } from '@nestjs/graphql';
 import { Payment } from './Payment';
 
 @ObjectType()
 export class Transation {
-  @Field(() => ID)
+  @Field((_type) => ID)
   transactionId: string;
 
-  @Field()
+  @Field((_type) => Float)
   amountTransation: number;
 
   @Field({ nullable: true })
@@ -15,7 +15,7 @@ export class Transation {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [Payment])
+  @Field((_type) => [Payment])
   Payments: Payment[];
 
   // skip overwrite 👇

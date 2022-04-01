@@ -1,15 +1,15 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { Field, Float, ID, ObjectType } from '@nestjs/graphql';
 import { User } from './User';
 import { Hotel } from './Hotel';
 import { RoomType } from './RoomType';
 
 @ObjectType()
 export class Reservation {
-  @Field(() => ID)
+  @Field((_type) => ID)
   reservationId: string;
 
-  @Field(() => [String])
-  guestList: string[];
+  @Field()
+  guestList: string;
 
   @Field({ nullable: true })
   checkIn?: Date;
@@ -17,7 +17,7 @@ export class Reservation {
   @Field({ nullable: true })
   CheckOut?: Date;
 
-  @Field()
+  @Field((_type) => Float)
   balanceAmount: number;
 
   @Field({ nullable: true })
@@ -26,19 +26,19 @@ export class Reservation {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => User, { nullable: true })
+  @Field((_type) => User, { nullable: true })
   User?: User;
 
   @Field({ nullable: true })
   userId?: string;
 
-  @Field(() => Hotel, { nullable: true })
+  @Field((_type) => Hotel, { nullable: true })
   Hotel?: Hotel;
 
   @Field({ nullable: true })
   hotelId?: string;
 
-  @Field(() => RoomType, { nullable: true })
+  @Field((_type) => RoomType, { nullable: true })
   RoomType?: RoomType;
 
   @Field({ nullable: true })

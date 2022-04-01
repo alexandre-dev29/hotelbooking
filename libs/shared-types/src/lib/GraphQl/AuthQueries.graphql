@@ -1,0 +1,21 @@
+mutation loginUser($phoneNumber: String!, $password: String!){
+  loginUser(phoneNumber: $phoneNumber, password: $password)
+}
+
+mutation RegisterUser($firstName: String!, $lastName: String!, $location: String, $password: String!, $phoneNumber: String!){
+  RegisterUser(firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, password: $password, location: $location){
+    userId
+    phoneNumber
+    firstName
+    lastName
+    location
+  }
+}
+
+mutation AskingForOtpCode($phoneNumber: String!){
+  AskingForOtpCode(phoneNumber: $phoneNumber)
+}
+
+mutation ConfirmPhoneNumber($otpCode: String!, $phoneNumber: String!){
+  ConfirmPhoneNumber(phoneNumber: $phoneNumber, otpCode: $otpCode)
+}

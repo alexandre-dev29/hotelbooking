@@ -1,10 +1,10 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Room } from './Room';
 import { Reservation } from './Reservation';
 
 @ObjectType()
 export class Hotel {
-  @Field(() => ID)
+  @Field((_type) => ID)
   hotelId: string;
 
   @Field()
@@ -22,10 +22,10 @@ export class Hotel {
   @Field({ nullable: true })
   updatedAt?: Date;
 
-  @Field(() => [Room])
+  @Field((_type) => [Room])
   Rooms: Room[];
 
-  @Field(() => [Reservation])
+  @Field((_type) => [Reservation])
   reserations: Reservation[];
 
   // skip overwrite 👇
