@@ -1,0 +1,17 @@
+query getAllUsers{
+  getAllUsers {
+    userId
+    firstName
+    lastName
+    phoneNumber
+    location
+    isPhoneConfirmed
+    role {
+      roleId
+      userRole
+      createdAt
+      updatedAt
+    }
+
+  }
+}

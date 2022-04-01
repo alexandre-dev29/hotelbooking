@@ -1,4 +1,4 @@
-import {Scalar} from "@nestjs/graphql";
+import { Scalar } from '@nestjs/graphql';
 
 export function sharedTypes(): string {
   return 'shared-types';

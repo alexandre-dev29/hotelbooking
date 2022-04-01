@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserResolver } from './user.resolver';
-import { AuthService } from '@hotelbooking/auth-user';
+import { AuthService, JwtStrategy } from '@hotelbooking/auth-user';
 import { PrismaService, TwilioService } from '@hotelbooking/utility';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -22,6 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     AuthService,
     PrismaService,
     TwilioService,
+    JwtStrategy,
   ],
 })
 export class UserModule {}

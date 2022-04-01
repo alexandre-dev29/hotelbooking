@@ -9,3 +9,4 @@ export * from './lib/models/Transation';
 export * from './lib/models/User';
 export * from './lib/models/Tokens';
 export * from './lib/types/enums/RoomTypeEnum';
+export * from './lib/apollo/apolloConfig';

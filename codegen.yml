@@ -1,8 +1,8 @@
 overwrite: true
 schema: "http://localhost:3333/graphql"
-documents: "libs/shared-types/src/lib/GraphQl/*.graphql"
+documents: "libs/shared-ui-component/src/Utils/GraphQl/*.graphql"
 generates:
-  libs/shared-types/src/lib/GraphqlGenerated/graphql.tsx:
+  libs/shared-ui-component/src/Utils/GraphqlGenerated/generatedHooks.ts:
     plugins:
       - "typescript"
       - "typescript-operations"

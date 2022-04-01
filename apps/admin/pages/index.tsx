@@ -1,21 +1,15 @@
-import { ThemeSwitcher } from '@hotelbooking/shared-ui-component';
-import dynamic from 'next/dynamic';
-
-const BackgroundOverlayDynamic = dynamic(
-  () =>
-    // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-    import(
-      '../../../libs/shared-ui-component/src/lib/background-overlay/background-overlay'
-    ),
-  { ssr: false }
-);
+import { useGetAllUsersQuery } from '@hotelbooking/shared-ui-component';
 
 export function Index() {
+  const { data, loading } = useGetAllUsersQuery();
+  if (!loading) console.log(data);
   return (
     <>
-      <BackgroundOverlayDynamic />
-      <h1>Hello alexandre</h1>
-      <ThemeSwitcher />
+      {!loading
+        ? data.getAllUsers.map((user, index) => (
+            <h1 key={index}>{user.phoneNumber}</h1>
+          ))
+        : 'Loading'}
     </>
   );
 }

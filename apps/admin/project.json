@@ -21,7 +21,8 @@
       "executor": "@nrwl/next:server",
       "options": {
         "buildTarget": "admin:build",
-        "dev": true
+        "dev": true,
+        "inspect": true
       },
       "configurations": {
         "production": {

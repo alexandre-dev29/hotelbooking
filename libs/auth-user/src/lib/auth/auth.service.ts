@@ -19,12 +19,14 @@ export class AuthService {
   ): Promise<LoginResponse | any> {
     const user = await this.prismaService.user.findUnique({
       where: { phoneNumber: phoneNumber },
+      include: { Role: true },
     });
     if (user && (await bcrypt.compare(password, user.password))) {
       const accessToken = await this.jwtService.signAsync(
         {
-          phoneNUmber: phoneNumber,
+          phoneNumber: phoneNumber,
           userId: user.userId,
+          userRole: user.Role.userRole,
         },
         {
           expiresIn: '60m',
