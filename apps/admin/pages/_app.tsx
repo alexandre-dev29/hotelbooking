@@ -8,6 +8,7 @@ import {
   ErrorPopup,
   ErrorTypeGraphQl,
   LightTheme,
+  ThemeSwitcher,
 } from '@hotelbooking/shared-ui-component';
 import {
   ApolloClient,
@@ -19,6 +20,16 @@ import {
 import { useState } from 'react';
 import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
+import dynamic from 'next/dynamic';
+
+const BackgroundOverlayDynamic = dynamic(
+  () =>
+    // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+    import(
+      '../../../libs/shared-ui-component/src/lib/background-overlay/background-overlay'
+    ),
+  { ssr: false }
+);
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,6 +95,8 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <NextUIProvider>
           <ApolloProvider client={client}>
             <Component {...pageProps} />
+            <BackgroundOverlayDynamic />
+            <ThemeSwitcher />
           </ApolloProvider>
         </NextUIProvider>
       </NextThemesProvider>
