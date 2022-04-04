@@ -48,11 +48,12 @@ export class AuthService {
         user: {
           userId: user.userId,
           phoneNumber: user.phoneNumber,
+          firstName: user.firstName,
         },
       } as LoginResponse;
     } else {
       return new GraphQLError(
-        'the password or email is invalid please try again'
+        'The phone number or password is invalid please try again'
       );
     }
   }

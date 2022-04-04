@@ -17,6 +17,7 @@ export function BackgroundOverlay(props: BackgroundOverlayProps) {
           top: '-10%',
           left: '-20%',
           display: theme === 'dark' ? 'block' : 'none',
+          zIndex: '0',
         }}
       />
 
@@ -28,6 +29,7 @@ export function BackgroundOverlay(props: BackgroundOverlayProps) {
           right: '-40%',
           height: '1500px',
           display: theme === 'dark' ? 'block' : 'none',
+          zIndex: '0',
         }}
       />
     </div>

@@ -10,7 +10,10 @@ export function ThemeSwitcher(props: ThemeSwitcherProps) {
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
   return (
-    <div className={'absolute top-96 right-4 transform rotate-90 shadow-2xl'}>
+    <div
+      className={'absolute top-12 md:top-96 right-4 transform rotate-90'}
+      style={{ zIndex: 100 }}
+    >
       <Switch
         checked={isDark}
         onChange={(e) => {
