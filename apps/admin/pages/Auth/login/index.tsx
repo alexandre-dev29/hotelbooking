@@ -1,19 +1,18 @@
-import { Button, Loading, Text } from '@nextui-org/react';
+import { Button, Loading, Text, theme } from '@nextui-org/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import {
+  InputComponent,
+  LoginFormElement,
   loginUser,
   useLoginUserMutation,
 } from '@hotelbooking/shared-ui-component';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { toast, Toaster } from 'react-hot-toast';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
-
-export interface LoginFormElement {
-  phoneNumber: string;
-  password: string;
-}
 
 export function Login(props: LoginProps) {
   const router = useRouter();
@@ -22,7 +21,8 @@ export function Login(props: LoginProps) {
     errorPolicy: 'all',
     fetchPolicy: 'network-only',
   });
-
+  const notify = () =>
+    toast.success('Welcome to the hotel booking.', { position: 'top-right' });
   const {
     register,
     handleSubmit,
@@ -44,6 +44,7 @@ export function Login(props: LoginProps) {
     });
     if (!loginResponse.errors) {
       loginUser(loginResponse.data.loginUser);
+      notify();
       await router.push('/');
     }
     setLoadingActive('none');
@@ -54,6 +55,7 @@ export function Login(props: LoginProps) {
       style={{ zIndex: 10 }}
       className="flex flex-col w-screen h-screen px-12 py-6"
     >
+      <Toaster />
       <div>
         <Text
           h1
@@ -99,38 +101,26 @@ export function Login(props: LoginProps) {
             style={{ display: loadingActive }}
             className={'mx-auto'}
           />
-          <input
-            placeholder={'Phone number'}
-            type={'text'}
-            autoComplete={'phoneNumber'}
-            style={{ zIndex: '10', color: '$mainTextColor' }}
-            className={
-              'outline-1 border-2 rounded-md px-6 py-4 w-full placeholder-gray-500'
-            }
-            {...register('phoneNumber', { required: true })}
-          />
-          {errors.phoneNumber && (
-            <span className={'text-red-500 -mt-3 ml-4'}>
-              This field is required
-            </span>
-          )}
-          <input
-            placeholder={'Password'}
-            autoComplete={'current-password'}
-            type={'password'}
-            style={{
-              zIndex: '10',
-              color: '$mainTextColor',
-            }}
-            className={'outline-1 border-2 rounded-md px-6 py-4 w-full '}
-            {...register('password', { required: true })}
-          />
-          {errors.password && (
-            <span className={'text-red-500 -mt-3 ml-4'}>
-              This field is required
-            </span>
-          )}
 
+          <InputComponent
+            errors={errors}
+            useFormRegisterReturn={register('phoneNumber', {
+              required: true,
+            })}
+            placeHolder={'Phone number'}
+            autocomplete={'phoneNumber'}
+            elementToCheck={errors.phoneNumber}
+          />
+          <InputComponent
+            errors={errors}
+            useFormRegisterReturn={register('password', {
+              required: true,
+            })}
+            placeHolder={'Password'}
+            autocomplete={'current-password'}
+            type={'password'}
+            elementToCheck={errors.password}
+          />
           <Button
             shadow
             color={'primary'}
@@ -147,6 +137,28 @@ export function Login(props: LoginProps) {
           >
             Forgot Password?
           </a>
+          <p
+            style={{
+              color: '$mainTextColor',
+              textAlign: 'center',
+            }}
+          >
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
+            Don't have an account?{' '}
+            <Link href={'/Auth/register'}>
+              <a
+                style={{
+                  color: theme.colors.gray700.value,
+                  textDecoration: 'underline',
+                  textUnderlineOffset: '0.1rem',
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                }}
+              >
+                Register
+              </a>
+            </Link>
+          </p>
         </form>
       </div>
     </div>
