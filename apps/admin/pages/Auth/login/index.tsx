@@ -23,6 +23,10 @@ export function Login(props: LoginProps) {
   });
   const notify = () =>
     toast.success('Welcome to the hotel booking.', { position: 'top-right' });
+  const notifyOtp = () =>
+    toast.success('Your phone Number is not yet confirmed please confirm', {
+      position: 'top-right',
+    });
   const {
     register,
     handleSubmit,
@@ -43,9 +47,17 @@ export function Login(props: LoginProps) {
       },
     });
     if (!loginResponse.errors) {
-      loginUser(loginResponse.data.loginUser);
-      notify();
-      await router.push('/');
+      if (loginResponse.data.loginUser.isPhoneNumberConfirmed) {
+        loginUser(loginResponse.data.loginUser);
+        await router.push('/');
+        notify();
+      } else {
+        notifyOtp();
+        await router.push({
+          pathname: '/Auth/otp-code',
+          query: { phoneNumber: phoneNumber },
+        });
+      }
     }
     setLoadingActive('none');
   };
@@ -130,13 +142,7 @@ export function Login(props: LoginProps) {
           >
             Login to Your Account{' '}
           </Button>
-          <a
-            href={'#'}
-            className={'self-center underline underline-offset-2'}
-            style={{ zIndex: '10', color: '$mainTextColor' }}
-          >
-            Forgot Password?
-          </a>
+
           <p
             style={{
               color: '$mainTextColor',

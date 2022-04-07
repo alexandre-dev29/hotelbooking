@@ -8,6 +8,7 @@ import {
   useRegisterUserMutation,
 } from '@hotelbooking/shared-ui-component';
 import { useRouter } from 'next/router';
+import { toast, Toaster } from 'react-hot-toast';
 
 /* eslint-disable-next-line */
 export interface RegisterProps {}
@@ -20,6 +21,12 @@ export function Register(props: RegisterProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormElement>();
+
+  const notify = () =>
+    toast.success(
+      `You have registered successfully please write the OTP code you've just receive.`,
+      { position: 'top-right' }
+    );
 
   const [registerMutation] = useRegisterUserMutation({
     errorPolicy: 'all',
@@ -51,7 +58,11 @@ export function Register(props: RegisterProps) {
       !registerResponse.errors &&
       registerResponse.data.RegisterUser.firstName === firstName
     ) {
-      await router.push('/Auth/login');
+      notify();
+      await router.push({
+        pathname: '/Auth/otp-code',
+        query: { phoneNumber: phoneNumber },
+      });
     }
     setLoadingActive('none');
   };
@@ -62,6 +73,7 @@ export function Register(props: RegisterProps) {
       className="flex flex-col w-screen h-screen px-12 py-6"
     >
       <div>
+        <Toaster />
         <Text
           h1
           size={40}

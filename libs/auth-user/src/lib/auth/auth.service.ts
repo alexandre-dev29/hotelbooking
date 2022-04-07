@@ -43,14 +43,26 @@ export class AuthService {
           token: accessToken,
         },
       });
-      return {
-        accessToken,
-        user: {
-          userId: user.userId,
-          phoneNumber: user.phoneNumber,
-          firstName: user.firstName,
-        },
-      } as LoginResponse;
+      if (user.isPhoneConfirmed) {
+        return {
+          accessToken,
+          isPhoneNumberConfirmed: true,
+          user: {
+            userId: user.userId,
+            phoneNumber: user.phoneNumber,
+            firstName: user.firstName,
+          },
+        } as LoginResponse;
+      } else {
+        const responseTwilio = await this.twilioService.SendOtpVerificationCode(
+          phoneNumber
+        );
+        if (responseTwilio.status == 'pending') {
+          return {
+            isPhoneNumberConfirmed: user.isPhoneConfirmed,
+          } as LoginResponse;
+        }
+      }
     } else {
       return new GraphQLError(
         'The phone number or password is invalid please try again'
