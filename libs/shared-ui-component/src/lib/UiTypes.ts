@@ -15,3 +15,9 @@ export interface LoginFormElement {
   phoneNumber: string;
   password: string;
 }
+
+export interface SideBarLinkProps {
+  iconElement: any;
+  linkTitle: string;
+  href: string;
+}

@@ -6,3 +6,5 @@ export * from './lib/AuthUtilities';
 export * from './lib/UiTypes';
 export * from './Utils/GraphqlGenerated/generatedHooks';
 export * from './lib/input-component/input-component';
+export * from './lib/side-bar/side-bar';
+export * from './lib/side-bar-link/side-bar-link';
