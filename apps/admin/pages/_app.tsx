@@ -76,7 +76,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', zIndex: 0 }}>
       <ErrorPopup
         errorType={errorType}
         messages={messagesError}

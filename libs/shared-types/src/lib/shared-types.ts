@@ -6,6 +6,7 @@ export function sharedTypes(): string {
 
 @Scalar('LoginResponse')
 export class LoginResponse {
+  isPhoneNumberConfirmed: boolean;
   accessToken: string;
   user: any;
 }
