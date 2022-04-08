@@ -21,7 +21,7 @@ export function SideBar(props: SideBarProps) {
         }
       />
       <div className={'flex flex-col justify-between h-full'}>
-        <div className={'grid grid-rows-1 gap-5 mt-12'}>
+        <div className={'grid grid-rows-1 gap-10 mt-12'}>
           {props.sideBarUpElements.map((currentElement, index) => (
             <SideBarLink
               key={index}
@@ -31,7 +31,7 @@ export function SideBar(props: SideBarProps) {
             />
           ))}
         </div>
-        <div className={'grid grid-rows-1 gap-5'}>
+        <div className={'grid grid-rows-1 gap-8'}>
           {props.sideBarDownElements?.map((currentElement, index) => (
             <SideBarLink
               key={index}

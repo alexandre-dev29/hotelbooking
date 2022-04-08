@@ -8,3 +8,5 @@ export * from './Utils/GraphqlGenerated/generatedHooks';
 export * from './lib/input-component/input-component';
 export * from './lib/side-bar/side-bar';
 export * from './lib/side-bar-link/side-bar-link';
+export * from './lib/nav-bar/nav-bar';
+export * from './lib/hotel-stats/hotel-stats';

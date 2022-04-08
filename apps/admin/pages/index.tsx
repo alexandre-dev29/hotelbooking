@@ -1,4 +1,9 @@
-import { SideBar, SideBarLinkProps } from '@hotelbooking/shared-ui-component';
+import {
+  HotelStats,
+  NavBar,
+  SideBar,
+  SideBarLinkProps,
+} from '@hotelbooking/shared-ui-component';
 import {
   AiFillHome,
   AiFillSetting,
@@ -35,12 +40,12 @@ export function Index() {
     {
       href: '/',
       iconElement: <AiFillSetting className={'text-3xl text-teal-500'} />,
-      linkTitle: 'Dashboard',
+      linkTitle: 'Settings',
     },
     {
       href: '/',
       iconElement: <AiOutlineLogout className={'text-3xl text-teal-500 '} />,
-      linkTitle: 'Favorite',
+      linkTitle: 'Logout',
     },
   ];
   return (
@@ -50,16 +55,13 @@ export function Index() {
         sideBarDownElements={sideBarDownLinks}
       />
       <main className={'flex-1 flex-col'}>
-        <div
-          className={
-            'h-[6vh] min-h-fit bg-white w-full shadow-sm flex items-center px-10'
-          }
-        >
-          <h1 className={'text-lg mb-0'}>NavBar</h1>
-        </div>
-        <div className={'p-5'}>
-          <h3>Main Content</h3>
-          <p>alexandre</p>
+        <NavBar />
+        <div className={'grid grid-cols-3 gap-24 p-10'}>
+          <div className={'col-span-2'}>
+            <h3 className={'font-body font-black tracking-wider'}>Dashboard</h3>
+            <HotelStats />
+          </div>
+          <div className={'bg-green-400'}>sdf</div>
         </div>
       </main>
     </div>
