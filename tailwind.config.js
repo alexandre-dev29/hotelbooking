@@ -5,6 +5,10 @@ module.exports = {
     './libs/shared-ui-component/src/lib/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    fontFamily: {
+      display: ['Montserrat'],
+      body: ['Poppins'],
+    },
     extend: {},
   },
   plugins: [],

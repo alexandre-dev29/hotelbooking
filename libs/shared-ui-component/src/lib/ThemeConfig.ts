@@ -11,6 +11,9 @@ export const LightTheme = createTheme({
       mainTextColor: '$gray900',
       primaryShadow: '$green500',
     },
+    fonts: {
+      sans: "'Montserrat', 'Poppins', sans-serif",
+    },
   },
 });
 
@@ -24,6 +27,9 @@ export const DarkTheme = createTheme({
       primary: '$green500',
       mainTextColor: '$gray200',
       primaryShadow: '$green500',
+    },
+    fonts: {
+      sans: "'Montserrat', 'Poppins', sans-serif",
     },
   },
 });

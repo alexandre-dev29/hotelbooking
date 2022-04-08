@@ -44,11 +44,24 @@ export function Index() {
     },
   ];
   return (
-    <div className={'w-screen h-screen bg-gray-100'}>
+    <div className={'w-screen h-screen bg-gray-100 flex'}>
       <SideBar
         sideBarUpElements={sideBarUpLinks}
         sideBarDownElements={sideBarDownLinks}
       />
+      <main className={'flex-1 flex-col'}>
+        <div
+          className={
+            'h-[6vh] min-h-fit bg-white w-full shadow-sm flex items-center px-10'
+          }
+        >
+          <h1 className={'text-lg mb-0'}>NavBar</h1>
+        </div>
+        <div className={'p-5'}>
+          <h3>Main Content</h3>
+          <p>alexandre</p>
+        </div>
+      </main>
     </div>
   );
 }
