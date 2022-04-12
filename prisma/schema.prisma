@@ -31,6 +31,22 @@ model User {
   roleRoleId       String?
 }
 
+model Agents {
+  agentId          String @id @default(cuid())
+  agentName        String
+  agentPhoneNumber String
+
+  hotelId   String
+  roleId    String
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now())
+
+  Role         Role?   @relation(fields: [roleRoleId], references: [roleId])
+  roleRoleId   String?
+  Hotel        Hotel?  @relation(fields: [hotelHotelId], references: [hotelId])
+  hotelHotelId String?
+}
+
 model Tokens {
   tokenId   String    @id @default(cuid())
   token     String    @db.LongText
@@ -44,6 +60,7 @@ model Role {
   roleId    String    @id @default(cuid())
   userRole  String
   User      User[]
+  Agents    Agents[]
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now())
 }
@@ -56,6 +73,7 @@ model Hotel {
   createdAt   DateTime?     @default(now())
   updatedAt   DateTime?     @default(now())
   Rooms       Room[]
+  Agents      Agents[]
   reserations Reservation[]
 }
 
