@@ -1,5 +1,6 @@
 import { FaHeart, FaHome, FaUsers } from 'react-icons/fa';
 import { BsShieldFillPlus } from 'react-icons/bs';
+import { Card } from '@nextui-org/react';
 
 /* eslint-disable-next-line */
 export interface HotelStatsProps {}
@@ -51,20 +52,18 @@ const allData: HotelStatsComponentProps[] = [
 
 export function HotelStats(props: HotelStatsProps) {
   return (
-    <div
-      className={
-        'w-full bg-white py-4 grid grid-cols-4 shadow-sm transition-all duration-500 hover:shadow-md'
-      }
-    >
-      {allData.map((currentElement, index) => (
-        <HotelStatsComponent
-          key={index}
-          subTitle={currentElement.subTitle}
-          title={currentElement.title}
-          iconElement={currentElement.iconElement}
-        />
-      ))}
-    </div>
+    <Card>
+      <div className={'w-full py-4 grid grid-cols-4 '}>
+        {allData.map((currentElement, index) => (
+          <HotelStatsComponent
+            key={index}
+            subTitle={currentElement.subTitle}
+            title={currentElement.title}
+            iconElement={currentElement.iconElement}
+          />
+        ))}
+      </div>
+    </Card>
   );
 }
 
