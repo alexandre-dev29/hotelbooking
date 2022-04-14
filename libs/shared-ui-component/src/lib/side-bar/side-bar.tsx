@@ -17,7 +17,7 @@ export function SideBar(props: SideBarProps) {
     >
       <BsShieldFillPlus
         className={
-          'text-[3rem] bg-teal-400 rounded-full p-3 text-white transition-all duration-500 hover:shadow-2xl cursor-pointer'
+          'text-[2.8rem] bg-teal-400 rounded-full p-3 text-white transition-all duration-500 hover:shadow-2xl cursor-pointer'
         }
       />
       <div className={'flex flex-col justify-between h-full'}>
