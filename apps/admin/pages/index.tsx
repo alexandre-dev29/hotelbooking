@@ -1,50 +1,54 @@
 import {
+  GraphStats,
   HotelStats,
+  LatestClients,
   NavBar,
   SideBar,
   SideBarLinkProps,
 } from '@hotelbooking/shared-ui-component';
+import { Card, Grid, Row } from '@nextui-org/react';
 import {
+  AiFillBell,
   AiFillHome,
   AiFillSetting,
   AiFillStar,
   AiOutlineFileDone,
   AiOutlineLogout,
 } from 'react-icons/ai';
-import { FaTelegram } from 'react-icons/fa';
+import { FaArrowRight, FaTelegram } from 'react-icons/fa';
 
 export function Index() {
   const sideBarUpLinks: SideBarLinkProps[] = [
     {
       href: '/',
-      iconElement: <AiFillHome className={'text-3xl text-teal-500'} />,
+      iconElement: <AiFillHome className={'text-2xl text-teal-500'} />,
       linkTitle: 'Dashboard',
     },
     {
       href: '/',
-      iconElement: <AiFillStar className={'text-3xl text-teal-500'} />,
+      iconElement: <AiFillStar className={'text-2xl text-teal-500'} />,
       linkTitle: 'Favorite',
     },
     {
       href: '/',
-      iconElement: <FaTelegram className={'text-3xl text-teal-500'} />,
+      iconElement: <FaTelegram className={'text-2xl text-teal-500'} />,
       linkTitle: 'Message',
     },
     {
       href: '/',
-      iconElement: <AiOutlineFileDone className={'text-3xl text-teal-500 '} />,
+      iconElement: <AiOutlineFileDone className={'text-2xl text-teal-500 '} />,
       linkTitle: 'Message',
     },
   ];
   const sideBarDownLinks: SideBarLinkProps[] = [
     {
       href: '/',
-      iconElement: <AiFillSetting className={'text-3xl text-teal-500'} />,
+      iconElement: <AiFillSetting className={'text-2xl text-teal-500'} />,
       linkTitle: 'Settings',
     },
     {
       href: '/',
-      iconElement: <AiOutlineLogout className={'text-3xl text-teal-500 '} />,
+      iconElement: <AiOutlineLogout className={'text-2xl text-teal-500 '} />,
       linkTitle: 'Logout',
     },
   ];
@@ -56,12 +60,166 @@ export function Index() {
       />
       <main className={'flex-1 flex-col'}>
         <NavBar />
-        <div className={'grid grid-cols-3 gap-24 p-10'}>
-          <div className={'col-span-2'}>
-            <h3 className={'font-body font-black tracking-wider'}>Dashboard</h3>
+        <div className={'grid grid-cols-4 gap-12 pt-10 px-10'}>
+          <div className={'col-span-3 flex flex-col'}>
+            <h3
+              className={
+                'font-body font-black tracking-wider uppercase text-lg'
+              }
+            >
+              Dashboard
+            </h3>
             <HotelStats />
+            <GraphStats />
+            <LatestClients />
           </div>
-          <div className={'bg-green-400'}>sdf</div>
+          <div className={''}>
+            <h3
+              className={
+                'font-body font-black tracking-wider uppercase text-lg'
+              }
+            >
+              Reports
+            </h3>
+            <Grid sm={12} md={12}>
+              <Card
+                css={{ borderRadius: '$xs', boxShadow: '$sm' }}
+                className={'transform hover:scale-105'}
+              >
+                <Card.Body css={{ py: '$4' }}>
+                  <div className={'flex items-center justify-around py-2'}>
+                    <AiFillBell
+                      className={
+                        'transition-all duration-500 text-red-400 rounded-full  text-4xl transform hover:scale-110'
+                      }
+                    />
+                    <div className={'flex flex-col'}>
+                      <p className={'m-0 text-sm font-bold text-gray-500 '}>
+                        New reservation
+                      </p>
+                      <p
+                        className={
+                          'm-0 text-sm font-display font-medium text-gray-800'
+                        }
+                      >
+                        it was made from Axel Mwenze
+                      </p>
+                    </div>
+                  </div>
+                </Card.Body>
+                <Card.Footer>
+                  <Row justify="space-between">
+                    <p
+                      className={
+                        'text-gray-500 text-sm font-display text-gray-600'
+                      }
+                    >
+                      1 min ago
+                    </p>
+                    <a
+                      href="#"
+                      className={'text-teal-400 font-bold font-display flex'}
+                    >
+                      Details
+                      <FaArrowRight className={'ml-2'} />
+                    </a>
+                  </Row>
+                </Card.Footer>
+              </Card>
+            </Grid>
+            <Grid sm={12} md={12}>
+              <Card
+                css={{ borderRadius: '$xs', boxShadow: '$sm' }}
+                className={'transform hover:scale-105'}
+              >
+                <Card.Body css={{ py: '$4' }}>
+                  <div className={'flex items-center justify-around py-2'}>
+                    <AiFillBell
+                      className={
+                        'transition-all duration-500 text-red-400 rounded-full  text-4xl transform hover:scale-110'
+                      }
+                    />
+                    <div className={'flex flex-col'}>
+                      <p className={'m-0 text-sm font-bold text-gray-500 '}>
+                        New reservation
+                      </p>
+                      <p
+                        className={
+                          'm-0 text-sm font-display font-medium text-gray-800'
+                        }
+                      >
+                        it was made from Axel Mwenze
+                      </p>
+                    </div>
+                  </div>
+                </Card.Body>
+                <Card.Footer>
+                  <Row justify="space-between">
+                    <p
+                      className={
+                        'text-gray-500 text-sm font-display text-gray-600'
+                      }
+                    >
+                      1 min ago
+                    </p>
+                    <a
+                      href="#"
+                      className={'text-teal-400 font-bold font-display flex'}
+                    >
+                      Details
+                      <FaArrowRight className={'ml-2'} />
+                    </a>
+                  </Row>
+                </Card.Footer>
+              </Card>
+            </Grid>
+            <Grid sm={12} md={12}>
+              <Card
+                css={{ borderRadius: '$xs', boxShadow: '$sm' }}
+                className={'transform hover:scale-105'}
+              >
+                <Card.Body css={{ py: '$4' }}>
+                  <div className={'flex items-center justify-around py-2'}>
+                    <AiFillBell
+                      className={
+                        'transition-all duration-500 text-red-400 rounded-full  text-4xl transform hover:scale-110'
+                      }
+                    />
+                    <div className={'flex flex-col'}>
+                      <p className={'m-0 text-sm font-bold text-gray-500 '}>
+                        New reservation
+                      </p>
+                      <p
+                        className={
+                          'm-0 text-sm font-display font-medium text-gray-800'
+                        }
+                      >
+                        it was made from Axel Mwenze
+                      </p>
+                    </div>
+                  </div>
+                </Card.Body>
+                <Card.Footer>
+                  <Row justify="space-between">
+                    <p
+                      className={
+                        'text-gray-500 text-sm font-display text-gray-600'
+                      }
+                    >
+                      1 min ago
+                    </p>
+                    <a
+                      href="#"
+                      className={'text-teal-400 font-bold font-display flex'}
+                    >
+                      Details
+                      <FaArrowRight className={'ml-2'} />
+                    </a>
+                  </Row>
+                </Card.Footer>
+              </Card>
+            </Grid>
+          </div>
         </div>
       </main>
     </div>
