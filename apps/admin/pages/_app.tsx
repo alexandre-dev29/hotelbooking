@@ -7,8 +7,10 @@ import {
   DarkTheme,
   ErrorPopup,
   ErrorTypeGraphQl,
+  LayoutProtected,
   LightTheme,
   ThemeSwitcher,
+  UserContext,
 } from '@hotelbooking/shared-ui-component';
 import {
   ApolloClient,
@@ -17,10 +19,11 @@ import {
   HttpLink,
   InMemoryCache,
 } from '@apollo/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 
 const BackgroundOverlayDynamic = dynamic(
   () =>
@@ -35,6 +38,16 @@ function CustomApp({ Component, pageProps }: AppProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [errorType, setErrorType] = useState(ErrorTypeGraphQl.Request);
   const [messagesError, setMessagesError] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem('currentUser')) {
+      setCurrentUser(JSON.parse(localStorage.getItem('currentUser')));
+    } else {
+      router.push('/Auth/login');
+    }
+  }, []);
 
   function closeModal() {
     setIsOpen(false);
@@ -75,6 +88,23 @@ function CustomApp({ Component, pageProps }: AppProps) {
     cache: new InMemoryCache(),
   });
 
+  if (pageProps.protected && !currentUser) {
+    return (
+      <LayoutProtected>
+        <span className="loading">Loading...</span>
+      </LayoutProtected>
+    );
+  }
+
+  if (
+    pageProps.protected &&
+    currentUser &&
+    pageProps.userTypes &&
+    pageProps.userTypes.indexOf(currentUser.userRole) === -1
+  ) {
+    return <LayoutProtected>Sorry, you don't have access</LayoutProtected>;
+  }
+
   return (
     <div style={{ position: 'relative', zIndex: 0 }}>
       <ErrorPopup
@@ -94,8 +124,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
       >
         <NextUIProvider>
           <ApolloProvider client={client}>
-            <Component {...pageProps} />
             <BackgroundOverlayDynamic />
+            <UserContext.Provider value={currentUser}>
+              <Component {...pageProps} />
+            </UserContext.Provider>
             <ThemeSwitcher />
           </ApolloProvider>
         </NextUIProvider>

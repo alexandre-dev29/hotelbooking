@@ -10,9 +10,6 @@ import {
 } from 'react-icons/ai';
 import { FaTelegram } from 'react-icons/fa';
 
-/* eslint-disable-next-line */
-export interface LayoutProtectedProps {}
-
 export function LayoutProtected({ children }: any) {
   const sideBarUpLinks: SideBarLinkProps[] = [
     {

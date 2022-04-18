@@ -49,7 +49,7 @@ export function Login(props: LoginProps) {
     if (!loginResponse.errors) {
       if (loginResponse.data.loginUser.isPhoneNumberConfirmed) {
         loginUser(loginResponse.data.loginUser);
-        await router.push('/');
+        await window.location.assign('/');
         notify();
       } else {
         notifyOtp();

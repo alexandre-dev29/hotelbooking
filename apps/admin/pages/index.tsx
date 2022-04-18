@@ -8,7 +8,7 @@ import { Card, Grid, Row } from '@nextui-org/react';
 import { AiFillBell } from 'react-icons/ai';
 import { FaArrowRight } from 'react-icons/fa';
 
-export function Index() {
+export default function Index() {
   return (
     <LayoutProtected>
       <div className={'grid grid-cols-4 gap-12 pt-10 px-10'}>
@@ -172,4 +172,11 @@ export function Index() {
   );
 }
 
-export default Index;
+export async function getStaticProps(context) {
+  return {
+    props: {
+      protected: true,
+      userTypes: ['User'],
+    },
+  };
+}

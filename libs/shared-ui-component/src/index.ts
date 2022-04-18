@@ -4,6 +4,7 @@ export * from './lib/background-overlay/background-overlay';
 export * from './lib/error-popup/error-popup';
 export * from './lib/AuthUtilities';
 export * from './lib/UiTypes';
+export * from './lib/UserContextUi';
 export * from './Utils/GraphqlGenerated/generatedHooks';
 export * from './lib/input-component/input-component';
 export * from './lib/side-bar/side-bar';
