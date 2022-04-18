@@ -1,6 +1,5 @@
 import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { RoomTypeEnum } from '../types/enums/RoomTypeEnum';
-import { Reservation } from './Reservation';
 
 @ObjectType()
 export class RoomType {
@@ -36,9 +35,6 @@ export class RoomType {
 
   @Field({ nullable: true })
   updatedAt?: Date;
-
-  @Field((_type) => [Reservation])
-  reserations: Reservation[];
 
   // skip overwrite 👇
 }

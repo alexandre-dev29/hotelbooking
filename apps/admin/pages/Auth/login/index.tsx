@@ -1,11 +1,12 @@
 import { Button, Loading, Text, theme } from '@nextui-org/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   InputComponent,
   LoginFormElement,
   loginUser,
   useLoginUserMutation,
+  useUser,
 } from '@hotelbooking/shared-ui-component';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -21,6 +22,7 @@ export function Login(props: LoginProps) {
     errorPolicy: 'all',
     fetchPolicy: 'network-only',
   });
+  const currentUser = useUser();
   const notify = () =>
     toast.success('Welcome to the hotel booking.', { position: 'top-right' });
   const notifyOtp = () =>
@@ -32,6 +34,12 @@ export function Login(props: LoginProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormElement>();
+
+  useEffect(() => {
+    if (currentUser.currentUser) {
+      window.location.assign('/');
+    }
+  }, []);
 
   //handling submit event on the form
   const onSubmitLogin: SubmitHandler<LoginFormElement> = async ({
@@ -49,7 +57,7 @@ export function Login(props: LoginProps) {
     if (!loginResponse.errors) {
       if (loginResponse.data.loginUser.isPhoneNumberConfirmed) {
         loginUser(loginResponse.data.loginUser);
-        await router.push('/');
+        await window.location.assign('/');
         notify();
       } else {
         notifyOtp();

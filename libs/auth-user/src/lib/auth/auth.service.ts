@@ -51,6 +51,7 @@ export class AuthService {
             userId: user.userId,
             phoneNumber: user.phoneNumber,
             firstName: user.firstName,
+            userRole: user.Role.userRole,
           },
         } as LoginResponse;
       } else {

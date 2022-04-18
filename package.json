@@ -27,6 +27,7 @@
     "@prisma/client": "^3.11.0",
     "apollo-server-express": "^3.6.4",
     "bcrypt": "^5.0.1",
+    "bizcharts": "^4.1.15",
     "core-js": "^3.6.5",
     "graphql": "^16.3.0",
     "nestjs-twilio": "^2.1.0",
@@ -38,6 +39,7 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.29.0",
     "react-hot-toast": "^2.2.0",
+    "react-icons": "^4.3.1",
     "react-otp-input": "^2.4.0",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
@@ -47,6 +49,7 @@
     "type-graphql": "^1.1.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.1.2",
     "@graphql-codegen/cli": "2.6.2",
     "@graphql-codegen/introspection": "^2.1.1",
     "@graphql-codegen/typescript": "2.4.8",
