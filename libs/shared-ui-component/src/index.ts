@@ -12,3 +12,4 @@ export * from './lib/nav-bar/nav-bar';
 export * from './lib/hotel-stats/hotel-stats';
 export * from './lib/graph-stats/graph-stats';
 export * from './lib/latest-clients/latest-clients';
+export * from './lib/layout-protected/layout-protected';
