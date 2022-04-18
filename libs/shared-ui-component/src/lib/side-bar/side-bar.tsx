@@ -38,6 +38,7 @@ export function SideBar(props: SideBarProps) {
               href={currentElement.href}
               iconElement={currentElement.iconElement}
               linkTitle={currentElement.linkTitle}
+              onClick={currentElement.onClick}
             />
           ))}
         </div>

@@ -9,8 +9,11 @@ import {
   AiOutlineLogout,
 } from 'react-icons/ai';
 import { FaTelegram } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import { logoutUser } from '../AuthUtilities';
 
 export function LayoutProtected({ children }: any) {
+  const router = useRouter();
   const sideBarUpLinks: SideBarLinkProps[] = [
     {
       href: '/',
@@ -40,9 +43,12 @@ export function LayoutProtected({ children }: any) {
       linkTitle: 'Settings',
     },
     {
-      href: '/',
       iconElement: <AiOutlineLogout className={'text-2xl text-teal-500 '} />,
       linkTitle: 'Logout',
+      onClick: async () => {
+        logoutUser();
+        window.location.assign('Auth/login');
+      },
     },
   ];
   return (

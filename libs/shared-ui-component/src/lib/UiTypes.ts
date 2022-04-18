@@ -19,7 +19,8 @@ export interface LoginFormElement {
 export interface SideBarLinkProps {
   iconElement: any;
   linkTitle: string;
-  href: string;
+  href?: string;
+  onClick?: () => void;
 }
 
 export type UserType = {

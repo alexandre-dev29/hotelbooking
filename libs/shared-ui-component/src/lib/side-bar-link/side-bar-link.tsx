@@ -7,14 +7,24 @@ import { SideBarLinkProps } from '../UiTypes';
 export function SideBarLink(props: SideBarLinkProps) {
   return (
     <Tooltip content={props.linkTitle} color={'invert'} placement={'right'}>
-      <Link href={props.href}>
+      {props.href ? (
+        <Link href={props.href}>
+          <Button
+            auto
+            color={'default'}
+            css={{ background: '$white' }}
+            icon={props.iconElement}
+          />
+        </Link>
+      ) : (
         <Button
           auto
           color={'default'}
           css={{ background: '$white' }}
           icon={props.iconElement}
+          onClick={props.onClick}
         />
-      </Link>
+      )}
     </Tooltip>
   );
 }
