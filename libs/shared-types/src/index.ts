@@ -1,5 +1,6 @@
 export * from './lib/shared-types';
 export * from './lib/models/Hotel';
+export * from './lib/models/Agents';
 export * from './lib/models/Payment';
 export * from './lib/models/Reservation';
 export * from './lib/models/Room';

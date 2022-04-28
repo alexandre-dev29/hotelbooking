@@ -1,5 +1,4 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Reservation } from './Reservation';
 
 @ObjectType()
 export class Hotel {
@@ -20,9 +19,6 @@ export class Hotel {
 
   @Field({ nullable: true })
   updatedAt?: Date;
-
-  @Field((_type) => [Reservation])
-  reserations: Reservation[];
 
   // skip overwrite 👇
 }
