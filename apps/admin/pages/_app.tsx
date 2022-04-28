@@ -54,7 +54,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   }
 
   const httpLink = new HttpLink({
-    uri: 'http://localhost:3333/graphql',
+    uri: 'http://localhost:3030/graphql',
   });
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {

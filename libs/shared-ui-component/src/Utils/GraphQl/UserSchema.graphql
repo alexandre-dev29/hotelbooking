@@ -15,3 +15,50 @@ query getAllUsers{
 
   }
 }
+
+query getOneUser($id: String!){
+  getOneUser(userId: $id){
+    userId
+    firstName
+    lastName
+    phoneNumber
+    location
+    isPhoneConfirmed
+    role {
+      roleId
+      userRole
+      createdAt
+      updatedAt
+    }
+
+  }
+}
+mutation createUser($createUserInput: CreateUserInput!){
+  createUser(createUserInput: $createUserInput){
+    userId
+    firstName
+    lastName
+    phoneNumber
+    location
+    isPhoneConfirmed
+  }
+}
+
+mutation updateUser($updateUserInput: UpdateUserInput!){
+  updateUser(updateUserInput: $updateUserInput){
+    userId
+    firstName
+    lastName
+    phoneNumber
+    location
+    isPhoneConfirmed
+  }
+}
+
+mutation removeUser($userId: String!)
+{
+  removeUser(userId: $userId){
+    userId
+  }
+}
+

@@ -15,14 +15,26 @@ directive @requires(fields: String!) on FIELD_DEFINITION
 
 directive @provides(fields: String!) on FIELD_DEFINITION
 
+type Agents {
+  Hotel: Hotel!
+  Role: Role!
+  agentId: ID!
+  agentName: String!
+  agentPhoneNumber: String!
+  createdAt: DateTime
+  hotelHotelId: String
+  hotelId: String!
+  roleId: String!
+  roleRoleId: String
+  updatedAt: DateTime
+}
+
 type Hotel {
-  Rooms: [Room!]!
   createdAt: DateTime
   hotelId: ID!
   hotelName: String!
   location: String!
   owner: String!
-  reserations: [Reservation!]!
   updatedAt: DateTime
 }
 
@@ -30,9 +42,12 @@ type Mutation {
   AskingForOtpCode(phoneNumber: String!): Boolean!
   ConfirmPhoneNumber(otpCode: String!, phoneNumber: String!): Boolean!
   RegisterUser(emailAddress: String, firstName: String!, lastName: String!, location: String, password: String!, phoneNumber: String!): User!
+  createAgent(createAgentInput: CreateAgentInput!): Agents!
   createUser(createUserInput: CreateUserInput!): User!
   loginUser(password: String!, phoneNumber: String!): LoginResponse!
+  removeAgent(id: String!): Agents!
   removeUser(userId: String!): User!
+  updateAgent(updateAgentInput: UpdateAgentInput!): Agents!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
@@ -46,7 +61,9 @@ type Payment {
 
 type Query {
   _service: _Service!
+  getAllAgents: [Agents!]!
   getAllUsers: [User!]!
+  getOneAgent(id: String!): Agents!
   getOneUser(userId: String!): User!
 }
 
@@ -73,17 +90,6 @@ type Role {
   userRole: String!
 }
 
-type Room {
-  Hotel: Hotel!
-  createdAt: DateTime
-  hotelId: String!
-  roomCapacity: Int!
-  roomDescription: String!
-  roomId: ID!
-  roomPrice: Float!
-  updatedAt: DateTime
-}
-
 type RoomType {
   Ac: Boolean!
   capacity: Int!
@@ -91,7 +97,6 @@ type RoomType {
   heater: Boolean!
   price: Float!
   rating: Int
-  reserations: [Reservation!]!
   roomType: RoomTypeEnum!
   roomTypeDescription: String!
   roomTypeId: ID!
@@ -148,6 +153,17 @@ scalar DateTime
 
 scalar LoginResponse
 
+input CreateAgentInput {
+  "The Agent Name"
+  agentName: String!
+  "The Agent Phone Number"
+  agentPhoneNumber: String!
+  "The Id Of the hotel"
+  hotelId: String!
+  "The Role Id"
+  roleId: String!
+}
+
 input CreateUserInput {
   emailAddress: String
   firstName: String!
@@ -155,6 +171,15 @@ input CreateUserInput {
   location: String!
   password: String!
   phoneNumber: String!
+}
+
+input UpdateAgentInput {
+  agentId: String!
+  agentName: String!
+  agentPhoneNumber: String!
+  "The Id Of the hotel"
+  hotelId: String
+  roleId: String!
 }
 
 input UpdateUserInput {

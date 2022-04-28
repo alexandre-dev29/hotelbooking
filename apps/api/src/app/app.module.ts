@@ -10,6 +10,7 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 import { UserModule } from '../user/user.module';
+import { AgentsModule } from '../agents/agents.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserModule } from '../user/user.module';
     UtilityModule,
     AuthUserModule,
     UserModule,
+    AgentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

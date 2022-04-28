@@ -1,0 +1,75 @@
+mutation createAgent($createAgentInput: CreateAgentInput!){
+  createAgent(createAgentInput: $createAgentInput){
+    agentId
+    agentName
+    agentPhoneNumber
+    createdAt
+    updatedAt
+    roleId
+    Hotel {
+      hotelName
+      hotelId
+    }
+    Role {
+      roleId
+      userRole
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+mutation updateAgent($updateAgentInput: UpdateAgentInput!){
+  updateAgent(updateAgentInput: $updateAgentInput){
+    agentId
+    agentName
+  }
+}
+
+mutation removeAgent($id: String!){
+  removeAgent(id: $id){
+    agentId
+  }
+}
+
+query getAllAgent{
+  getAllAgents {
+    agentId
+    agentName
+    agentPhoneNumber
+    createdAt
+    updatedAt
+    roleId
+    Hotel {
+      hotelName
+      hotelId
+    }
+    Role {
+      roleId
+      userRole
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+query getOneAgent($id: String!){
+  getOneAgent(id: $id){
+    agentId
+    agentName
+    agentPhoneNumber
+    createdAt
+    updatedAt
+    roleId
+    Hotel {
+      hotelName
+      hotelId
+    }
+    Role {
+      roleId
+      userRole
+      createdAt
+      updatedAt
+    }
+  }
+}

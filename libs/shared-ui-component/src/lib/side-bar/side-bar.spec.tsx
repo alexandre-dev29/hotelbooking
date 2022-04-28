@@ -4,7 +4,7 @@ import SideBar from './side-bar';
 
 describe('SideBar', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<SideBar />);
+    const { baseElement } = render(<SideBar sideBarUpElements={[]} />);
     expect(baseElement).toBeTruthy();
   });
 });
