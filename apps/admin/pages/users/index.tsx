@@ -1,11 +1,15 @@
+import styles from './index.module.scss';
 import { LayoutProtected } from '@hotelbooking/shared-ui-component';
 
-import Dashboard from './dashboard';
+/* eslint-disable-next-line */
+export interface UsersProps {}
 
-export default function Index() {
+export function Users(props: UsersProps) {
   return (
     <LayoutProtected>
-      <Dashboard />
+      <div className={styles['container']}>
+        <h1>Welcome to Users!</h1>
+      </div>
     </LayoutProtected>
   );
 }
@@ -18,3 +22,5 @@ export async function getStaticProps(context) {
     },
   };
 }
+
+export default Users;

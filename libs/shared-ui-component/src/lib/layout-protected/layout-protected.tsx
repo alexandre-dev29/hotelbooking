@@ -2,33 +2,28 @@ import SideBar from '../side-bar/side-bar';
 import NavBar from '../nav-bar/nav-bar';
 import { SideBarLinkProps } from '../UiTypes';
 import {
-  AiFillHome,
   AiFillSetting,
-  AiFillStar,
   AiOutlineFileDone,
   AiOutlineLogout,
+  AiOutlineUsergroupAdd,
 } from 'react-icons/ai';
-import { FaTelegram } from 'react-icons/fa';
-import { useRouter } from 'next/router';
+import { FaUsers } from 'react-icons/fa';
+
 import { logoutUser } from '../AuthUtilities';
 
 export function LayoutProtected({ children }: any) {
-  const router = useRouter();
   const sideBarUpLinks: SideBarLinkProps[] = [
     {
-      href: '/',
-      iconElement: <AiFillHome className={'text-2xl text-teal-500'} />,
-      linkTitle: 'Dashboard',
+      href: '/agents',
+      iconElement: (
+        <AiOutlineUsergroupAdd className={'text-2xl text-teal-500'} />
+      ),
+      linkTitle: 'Agents',
     },
     {
-      href: '/',
-      iconElement: <AiFillStar className={'text-2xl text-teal-500'} />,
-      linkTitle: 'Favorite',
-    },
-    {
-      href: '/',
-      iconElement: <FaTelegram className={'text-2xl text-teal-500'} />,
-      linkTitle: 'Message',
+      href: '/users',
+      iconElement: <FaUsers className={'text-2xl text-teal-500'} />,
+      linkTitle: 'Users',
     },
     {
       href: '/',

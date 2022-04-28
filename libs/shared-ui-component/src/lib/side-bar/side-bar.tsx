@@ -1,6 +1,7 @@
-import { BsShieldFillPlus } from 'react-icons/bs';
 import SideBarLink from '../side-bar-link/side-bar-link';
 import { SideBarLinkProps } from '../UiTypes';
+import { AiTwotoneHome } from 'react-icons/ai';
+import Link from 'next/link';
 
 /* eslint-disable-next-line */
 export interface SideBarProps {
@@ -15,11 +16,13 @@ export function SideBar(props: SideBarProps) {
         'h-screen bg-white w-[5vw] min-w-[5rem] shadow-sm py-12 flex flex-col items-center '
       }
     >
-      <BsShieldFillPlus
-        className={
-          'text-[2.8rem] bg-teal-400 rounded-full p-3 text-white transition-all duration-500 hover:shadow-2xl cursor-pointer'
-        }
-      />
+      <Link href={'/'}>
+        <AiTwotoneHome
+          className={
+            'text-[2.8rem] bg-teal-400 rounded-full p-3 text-white transition-all duration-500 hover:shadow-2xl cursor-pointer'
+          }
+        />
+      </Link>
       <div className={'flex flex-col justify-between h-full'}>
         <div className={'grid grid-rows-1 gap-10 mt-12'}>
           {props.sideBarUpElements.map((currentElement, index) => (
