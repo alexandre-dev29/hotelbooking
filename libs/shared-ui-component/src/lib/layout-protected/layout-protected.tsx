@@ -14,7 +14,7 @@ import { logoutUser } from '../AuthUtilities';
 export function LayoutProtected({ children }: any) {
   const sideBarUpLinks: SideBarLinkProps[] = [
     {
-      href: '/agents',
+      href: '/agentsPage',
       iconElement: (
         <AiOutlineUsergroupAdd className={'text-2xl text-teal-500'} />
       ),
@@ -54,7 +54,7 @@ export function LayoutProtected({ children }: any) {
       />
       <main className={'flex-1 flex-col'}>
         <NavBar />
-        {children}
+        <div className={'p-10'}>{children}</div>
       </main>
     </div>
   );
